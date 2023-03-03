@@ -6,15 +6,18 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './componentes/header/header.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { FormacionComponent } from './componentes/formacion/formacion.component';
+import { ProyectosComponent } from './componentes/proyectos/proyectos.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     InicioComponent,
-    FormacionComponent
+    FormacionComponent,
+    ProyectosComponent
   ],
-  imports: [
+  imports: [HttpClientModule,
     BrowserModule,
     AppRoutingModule
   ],
