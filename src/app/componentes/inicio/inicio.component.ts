@@ -11,7 +11,7 @@ export class InicioComponent implements OnInit {
   constructor(private datosporfolio: PorfolioService) {}
   ngOnInit(): void {
     this.datosporfolio.obtenerDatos().subscribe((data) => {
-      console.log('llamar sericio desde Inicio');
+      console.log('llamar servicio desde Inicio');
       this.datosdeinicio = data?.Inicio;
     });
   }

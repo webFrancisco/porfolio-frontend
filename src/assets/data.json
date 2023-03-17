@@ -3,9 +3,15 @@
     "nombre": "Francisco Fontana",
     "subtitulo": "Desarrollador Full Stack"
   },
-  "formacion": { "carreras de grado": [
-    "Perito en Técnica Bancaria e Impositivas Instituto San Miguel",
-    "Abogado Univerisad Catolica Argentina",
-    "Notario Universidad Catolica Argentina"
-  ], "cursos": [] }
+  "formacion": {
+    "carrerasDeGrado": [
+      "Perito en Técnica Bancaria e Impositivas Instituto San Miguel",
+      "Abogado Univerisad Catolica Argentina",
+      "Notario Universidad Catolica Argentina"
+    ],
+    "cursos": []
+  },
+  "proyectos": {}
+
+  
 }
