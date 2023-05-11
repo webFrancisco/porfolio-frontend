@@ -8,6 +8,9 @@ import { InicioComponent } from './componentes/inicio/inicio.component';
 import { FormacionComponent } from './componentes/formacion/formacion.component';
 import { ProyectosComponent } from './componentes/proyectos/proyectos.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ExperienciaComponent } from './componentes/experiencia/experiencia.component';
+import { SkillsComponent } from './componentes/skills/skills.component';
+import { FooterComponent } from './componentes/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     InicioComponent,
     FormacionComponent,
-    ProyectosComponent
+    ProyectosComponent,
+    ExperienciaComponent,
+    SkillsComponent,
+    FooterComponent
   ],
   imports: [HttpClientModule,
     BrowserModule,

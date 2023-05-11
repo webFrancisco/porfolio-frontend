@@ -1,0 +1,20 @@
+/* --- Estilos Footer --- */
+.secc-footer {
+  background-color: var(--oscuro);
+  padding-top: 8rem;
+  width: auto;
+  height: auto;
+  color: var(--blanco);
+}
+.social-link {
+  font-size: 20px;
+}
+.social-link:hover {
+  color: var(--naranja);
+}
+.social-link > svg {
+  fill: var(--blanco);
+}
+.secciones-link:hover {
+  color: var(--naranja);
+}
