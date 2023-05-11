@@ -1,0 +1,6 @@
+/* --- Estilos Navbar --- */
+#navbar-top > ul > li > a {
+  padding: 15px 20px;
+  font-size: 15px;
+  font-weight: bold;
+}

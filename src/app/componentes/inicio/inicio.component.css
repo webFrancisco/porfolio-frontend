@@ -1,0 +1,26 @@
+#seccion-inicio {
+  background-color: var(--mentaclaro);
+  padding: 1px;
+}
+#inicio-info {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
+#inicio-imagen {
+  align-self: end;
+}
+
+.sombraproyectos {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.inicio-contacto {
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--menta);
+}
+.inicio-contacto > a {
+  padding-left: 1rem;
+}
+.inicio-contacto > a > svg {
+  fill: var(--menta);
+}

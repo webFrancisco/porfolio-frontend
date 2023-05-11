@@ -1,7 +1,88 @@
-.link-header {
-    color: white !important;
-  }
-  
-  .link-header:hover {
-      color: gray !important;
-    }
+/* --- Estilos Generales --- */
+:root {
+  --menta: #48c89c;
+  --mentaclaro: #f4faf7;
+  --naranja: #ff9442;
+  --texto: #646464;
+  --blanco: #f5f5f5;
+  --negro: #0a0a0a;
+  --oscuro: #202430;
+}
+
+body {
+  background-color: white;
+  color: var(--black);
+  font-family: "Hind", sans-serif;
+}
+
+p {
+  color: var(--texto);
+  font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Rubik", sans-serif;
+}
+
+.botoncolor {
+  background-color: var(--menta);
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--blanco);
+  border: none;
+  padding: 1rem 2rem !important;
+}
+.botoncolor:hover {
+  background-color: transparent;
+  color: var(--menta);
+  /* border: 5px solid var(--menta); */
+  box-shadow: 0 0 0 3px var(--menta);
+}
+
+.botontransparente {
+  background-color: transparent;
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--menta);
+  border: none;
+  padding: 1rem 2rem !important;
+  box-shadow: 0 0 0 3px var(--menta);
+}
+.botontransparente:hover {
+  background-color: var(--menta);
+  color: var(--blanco);
+  /* border: 5px solid var(--menta); */
+  box-shadow: 0 0 0 3px var(--menta);
+}
+.heading-secundario {
+  font-size: 18px;
+  color: var(--naranja);
+}
+.secciones-padding {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+.item-card {
+  padding: 2rem;
+  text-align: initial;
+}
+.item-fecha {
+  font-weight: 400;
+  font-size: 14px;
+  color: darkgrey;
+}
+.item-titulo {
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--menta);
+  margin-bottom: 1rem;
+}
+.item-subtitulo {
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 1rem;
+}
