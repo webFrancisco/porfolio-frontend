@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ExperienciaComponent } from './componentes/experiencia/experiencia.component';
 import { SkillsComponent } from './componentes/skills/skills.component';
 import { FooterComponent } from './componentes/footer/footer.component';
+import { IniciarSesionComponent } from './componentes/iniciar-sesion/iniciar-sesion.component';
+import { PorfolioComponent } from './componentes/porfolio/porfolio.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,13 +24,17 @@ import { FooterComponent } from './componentes/footer/footer.component';
     ProyectosComponent,
     ExperienciaComponent,
     SkillsComponent,
-    FooterComponent
+    FooterComponent,
+    IniciarSesionComponent,
+    PorfolioComponent,
   ],
-  imports: [HttpClientModule,
+  imports: [
+    HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

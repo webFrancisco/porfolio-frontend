@@ -39,7 +39,20 @@
           <a class="nav-link" href="/#Proyectos">Proyectos</a>
         </li>
       </ul>
-      <button type="button" class="botoncolor btn btn-primary btn-lg gap-3">
+      <button
+        *ngIf="estaVerificado"
+        type="button"
+        class="botoncolor btn btn-primary btn-lg gap-3"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+      <button
+        *ngIf="!estaVerificado"
+        type="button"
+        class="botoncolor btn btn-primary btn-lg gap-3"
+        [routerLink]="['/login']"
+      >
         Login
       </button>
     </div>
