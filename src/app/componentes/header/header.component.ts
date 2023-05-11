@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { VerificacionService } from 'src/app/servicios/verificacion.service';
 
 @Component({
@@ -10,16 +11,23 @@ export class HeaderComponent implements OnInit {
   currentUser = { id: '' };
   estaVerificado = false;
 
-  constructor(private verificacionService: VerificacionService) {}
+  constructor(
+    private verificacionService: VerificacionService,
+    private ruta: Router
+  ) {}
 
   ngOnInit(): void {
-    this.currentUser = this.verificacionService.UsuarioVerificado;
-
-    this.estaVerificado = Boolean(this.currentUser.id);
+    this.actualizar();
   }
 
   logout() {
     this.verificacionService.SalirSesion();
-    this.estaVerificado = false;
+    this.actualizar();
+    window.location.reload();
+  }
+
+  actualizar() {
+    this.currentUser = this.verificacionService.UsuarioVerificado;
+    this.estaVerificado = Boolean(this.currentUser.id);
   }
 }

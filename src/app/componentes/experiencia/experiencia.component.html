@@ -1,37 +1,219 @@
- <section class="secciones-padding text-center container">
-      <div class="row">
-        <div class="col-md-6 my-auto row py-lg-5">
-          <div class="mx-auto text-start">
-            <h3 class="heading-secundario mb-4">Experiencia</h3>
-            <h2 class="display-6 fw-bold lh-1 mb-5">Carrera Profesional</h2>
-            <p>
-              Something short and leading about the collection below—its
-              contents, the creator, etc. Make it short and sweet, but not too
-              short so folks don’t simply skip over it entirely.
-            </p>
-          </div>
-        </div>
-        <div class="col-md-6 album py-5">
-          <div class="container">
-            <div class="row row-cols-1 g-3">
-              <div class="col">
-                <div class="card shadow-sm">
-                  <div class="card-body item-card">
-                    <h5 class="card-title item-fecha">2013-2023</h5>
-                    <h5 class="card-title item-titulo">Estudio De abogacia</h5>
-                    <h5 class="card-title item-subtitulo">Abogado Socio</h5>
-                    <p class="card-text">
-                      Lorem ipsum dolor sit amet. Vel quod voluptatem non
-                      facilis officiis sit iste vitae! Est minima cumque id
-                      galisum repellat aut voluptatibus error non mollitia
-                      laboriosam et delectus molestias ut animi saepe vel quia
-                      quod.
-                    </p>
-                  </div>
+<section class="secciones-padding text-center container">
+  <div class="row">
+    <div class="col-md-6 my-auto row py-lg-5">
+      <div class="mx-auto text-start">
+        <h3 class="heading-secundario mb-4">Experiencia</h3>
+        <h2 class="display-6 fw-bold lh-1 mb-5">Carrera Profesional</h2>
+        <p>
+          Something short and leading about the collection below—its contents,
+          the creator, etc. Make it short and sweet, but not too short so folks
+          don’t simply skip over it entirely.
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6 album py-5 text-start">
+      <div class="container">
+        <div class="row row-cols-1 g-3">
+          <!-- <div class="col">
+            <div class="card shadow-sm">
+              <div class="card-body item-card">
+                <div class="botones-edicion">
+                  <button class="btn btn-success">EDITAR</button>
+                  <button class="btn btn-danger">BORRAR</button>
                 </div>
+                <h5 class="card-title item-fecha">2013-2023</h5>
+                <h5 class="card-title item-titulo">Estudio De abogacia</h5>
+                <h5 class="card-title item-subtitulo">Abogado Socio</h5>
+                <p class="card-text">
+                  Lorem ipsum dolor sit amet. Vel quod voluptatem non facilis
+                  officiis sit iste vitae! Est minima cumque id galisum repellat
+                  aut voluptatibus error non mollitia laboriosam et delectus
+                  molestias ut animi saepe vel quia quod.
+                </p>
+              </div>
+            </div>
+          </div> -->
+          <div class="col" *ngFor="let experiencia of experiencias">
+            <div class="card shadow-sm">
+              <div class="card-body item-card">
+                <div *ngIf="estaVerificado" class="botones-edicion">
+                  <button class="btn btn-success">EDITAR</button>
+                  <button
+                    class="btn btn-danger"
+                    (click)="eliminarExperiencia(experiencia.id)"
+                  >
+                    BORRAR
+                  </button>
+                </div>
+                <h5 class="card-title item-fecha">
+                  {{ experiencia.fechaInicio }} hasta {{ experiencia.fechaFin }}
+                </h5>
+                <h5 class="card-title item-titulo">
+                  {{ experiencia.lugarOcupacion }}
+                </h5>
+                <h5 class="card-title item-subtitulo">
+                  {{ experiencia.ocupacion }}
+                </h5>
+                <p class="card-text">{{ experiencia.descripcionOcupacion }}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+      <button
+        *ngIf="!agregandoExperiencia && estaVerificado"
+        class="btn btn-primary m-3"
+        (click)="abrirFormAgregarExperiencia()"
+      >
+        AGREGAR
+      </button>
+      <div *ngIf="agregandoExperiencia">
+        <form
+          [formGroup]="nuevaExperiencia"
+          class="m-3"
+          (ngSubmit)="agregarExperiencia($event)"
+        >
+          <div class="mb-3">
+            <label for="inputOcupacion" class="form-label login-label"
+              >Ocupacion</label
+            >
+            <input
+              type="text"
+              formControlName="ocupacion"
+              [ngClass]="{
+                'is-invalid': nuevoOcupacion?.errors && nuevoOcupacion?.touched,
+                'is-valid': !nuevoOcupacion?.errors && nuevoOcupacion?.touched
+              }"
+              class="form-control"
+              id="inputOcupacion"
+            />
+            <div *ngIf="nuevoOcupacion?.errors && nuevoOcupacion?.touched">
+              <p
+                *ngIf="nuevoOcupacion?.hasError('required')"
+                class="text-danger"
+              >
+                El campo ocupacion es requerido.
+              </p>
+              <p
+                *ngIf="nuevoOcupacion?.hasError('minlength')"
+                class="text-danger"
+              >
+                La ocupacion debe tener 3 o mas caracteres.
+              </p>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="inputLOcupacion" class="form-label login-label"
+              >Lugar de Ocupacion</label
+            >
+            <input
+              type="text"
+              formControlName="lugarOcupacion"
+              [ngClass]="{
+                'is-invalid':
+                  nuevoLugarOcupacion?.errors && nuevoLugarOcupacion?.touched,
+                'is-valid':
+                  !nuevoLugarOcupacion?.errors && nuevoLugarOcupacion?.touched
+              }"
+              class="form-control"
+              id="inputLOcupacion"
+            />
+            <div
+              *ngIf="
+                nuevoLugarOcupacion?.errors && nuevoLugarOcupacion?.touched
+              "
+            >
+              <p
+                *ngIf="nuevoLugarOcupacion?.hasError('required')"
+                class="text-danger"
+              >
+                El campo lugar de ocupacion es requerido.
+              </p>
+              <p
+                *ngIf="nuevoLugarOcupacion?.hasError('minlength')"
+                class="text-danger"
+              >
+                El lugar de ocupacion debe tener 3 o mas caracteres.
+              </p>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="inputFechaInicio" class="form-label login-label"
+              >Fecha de Inicio</label
+            >
+            <input
+              type="date"
+              formControlName="fechaInicio"
+              [ngClass]="{
+                'is-invalid':
+                  nuevoFechaInicio?.errors && nuevoFechaInicio?.touched,
+                'is-valid':
+                  !nuevoFechaInicio?.errors && nuevoFechaInicio?.touched
+              }"
+              class="form-control"
+              id="inputFechaInicio"
+            />
+            <div *ngIf="nuevoFechaInicio?.errors && nuevoFechaInicio?.touched">
+              <p
+                *ngIf="nuevoFechaInicio?.hasError('required')"
+                class="text-danger"
+              >
+                El campo fecha de inicio es requerido.
+              </p>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="inputFechaFin" class="form-label login-label"
+              >Fecha de Fin</label
+            >
+            <input
+              type="date"
+              formControlName="fechaFin"
+              class="form-control"
+              id="inputFechaFin"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputDescripcion" class="form-label login-label"
+              >Descripcion de Ocupacion</label
+            >
+            <input
+              type="text"
+              formControlName="descripcionOcupacion"
+              [ngClass]="{
+                'is-invalid':
+                  nuevoDescripcion?.errors && nuevoDescripcion?.touched,
+                'is-valid':
+                  !nuevoDescripcion?.errors && nuevoDescripcion?.touched
+              }"
+              class="form-control"
+              id="inputDescripcion"
+            />
+            <div *ngIf="nuevoDescripcion?.errors && nuevoDescripcion?.touched">
+              <p
+                *ngIf="nuevoDescripcion?.hasError('required')"
+                class="text-danger"
+              >
+                El campo descripcion de ocupacion es requerido.
+              </p>
+              <p
+                *ngIf="nuevoDescripcion?.hasError('minlength')"
+                class="text-danger"
+              >
+                El descripcion de ocupacion debe tener 3 o mas caracteres.
+              </p>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+          <button
+            type="submit"
+            class="btn btn-danger ms-1"
+            (click)="cerrarFormAgregarExperiencia()"
+          >
+            Cancelar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
