@@ -30,6 +30,8 @@ export class PorfolioService {
   }
 
   modificarExperiencia(id: number, experiencia: any): Observable<any> {
+    console.log(id);
+    console.log(experiencia);
     return this.http.put<any>(
       `${this.apiUrl}/personas/1/experiencia/${id}`,
       experiencia

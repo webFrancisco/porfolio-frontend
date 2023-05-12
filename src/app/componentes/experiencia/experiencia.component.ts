@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { VerificacionService } from '../../servicios/verificacion.service';
 import { PorfolioService } from '../../servicios/porfolio.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VerificacionService } from 'src/app/servicios/verificacion.service';
@@ -12,7 +11,9 @@ import { VerificacionService } from 'src/app/servicios/verificacion.service';
 export class ExperienciaComponent implements OnInit {
   estaVerificado = false;
   agregandoExperiencia: Boolean = false;
+  modificandoExperiencia: any = null;
   nuevaExperiencia: FormGroup;
+  modificaExperiencia: FormGroup;
   experiencias: any;
 
   constructor(
@@ -21,6 +22,16 @@ export class ExperienciaComponent implements OnInit {
     private verificacionService: VerificacionService
   ) {
     this.nuevaExperiencia = this.formBuilder.group({
+      ocupacion: ['', [Validators.required, Validators.minLength(3)]],
+      lugarOcupacion: ['', [Validators.required, Validators.minLength(3)]],
+      fechaInicio: ['', [Validators.required]],
+      fechaFin: [''],
+      descripcionOcupacion: [
+        '',
+        [Validators.required, Validators.minLength(3)],
+      ],
+    });
+    this.modificaExperiencia = this.formBuilder.group({
       ocupacion: ['', [Validators.required, Validators.minLength(3)]],
       lugarOcupacion: ['', [Validators.required, Validators.minLength(3)]],
       fechaInicio: ['', [Validators.required]],
@@ -46,6 +57,14 @@ export class ExperienciaComponent implements OnInit {
     this.agregandoExperiencia = false;
   }
 
+  abrirFormModificaExperiencia(id: number): void {
+    this.modificandoExperiencia = id;
+  }
+
+  cerrarFormModificaExperiencia(): void {
+    this.modificandoExperiencia = null;
+  }
+
   agregarExperiencia(event: Event): void {
     event.preventDefault;
     this.porfolioService
@@ -53,6 +72,20 @@ export class ExperienciaComponent implements OnInit {
       .subscribe(() => {
         this.actualizarExperiencias();
         this.cerrarFormAgregarExperiencia();
+      });
+  }
+
+  modificarExperiencia(event: Event): void {
+    event.preventDefault;
+    console.log(this.modificaExperiencia);
+    this.porfolioService
+      .modificarExperiencia(
+        this.modificandoExperiencia,
+        this.modificaExperiencia.value
+      )
+      .subscribe(() => {
+        this.actualizarExperiencias();
+        this.cerrarFormModificaExperiencia();
       });
   }
 
@@ -75,22 +108,22 @@ export class ExperienciaComponent implements OnInit {
     );
   }
 
+  setExperienciaValues(experiencia: any) {
+    this.modificaExperiencia.patchValue({
+      ocupacion: experiencia.ocupacion,
+      lugarOcupacion: experiencia.lugarOcupacion,
+      fechaInicio: experiencia.fechaInicio,
+      fechaFin: experiencia.fechaFin,
+      descripcionOcupacion: experiencia.descripcionOcupacion,
+    });
+  }
+
   // --- GETTERS ---
-  get nuevoOcupacion() {
-    return this.nuevaExperiencia.get('ocupacion');
+  campoNuevaExp(campo: String) {
+    return this.nuevaExperiencia.get(`${campo}`);
   }
 
-  get nuevoLugarOcupacion() {
-    return this.nuevaExperiencia.get('lugarOcupacion');
-  }
-
-  get nuevoFechaInicio() {
-    return this.nuevaExperiencia.get('fechaInicio');
-  }
-  get nuevoFechaFin() {
-    return this.nuevaExperiencia.get('fechaFin');
-  }
-  get nuevoDescripcion() {
-    return this.nuevaExperiencia.get('descripcionOcupacion');
+  campoModificarExp(campo: String) {
+    return this.modificaExperiencia.get(`${campo}`);
   }
 }

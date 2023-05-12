@@ -86,3 +86,37 @@ h5 {
   font-size: 14px;
   margin-bottom: 1rem;
 }
+.botonBorrar {
+  font-family: "Rubik", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: none;
+  background-color: #dc3545;
+  border: none;
+}
+.botonBorrar:hover {
+  background-color: #dc3545;
+  filter: brightness(1.1);
+}
+.botonAgregar {
+  font-family: "Rubik", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background-color: var(--naranja);
+  border: none;
+}
+.botonAgregar:hover {
+  background-color: var(--naranja);
+  filter: brightness(1.1);
+}
+.botonEditar {
+  font-family: "Rubik", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background-color: var(--menta);
+  border: none;
+}
+.botonEditar:hover {
+  background-color: var(--menta);
+  filter: brightness(1.1);
+}
