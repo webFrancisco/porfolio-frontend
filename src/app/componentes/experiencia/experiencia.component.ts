@@ -45,7 +45,6 @@ export class ExperienciaComponent implements OnInit {
 
   ngOnInit(): void {
     this.actualizarExperiencias();
-    console.log(this.experiencias);
     this.actualizar();
   }
 
@@ -77,7 +76,6 @@ export class ExperienciaComponent implements OnInit {
 
   modificarExperiencia(event: Event): void {
     event.preventDefault;
-    console.log(this.modificaExperiencia);
     this.porfolioService
       .modificarExperiencia(
         this.modificandoExperiencia,
@@ -97,7 +95,6 @@ export class ExperienciaComponent implements OnInit {
 
   actualizarExperiencias(): void {
     this.porfolioService.getExperiencias().subscribe((experiencias) => {
-      console.log(experiencias);
       this.experiencias = experiencias;
     });
   }

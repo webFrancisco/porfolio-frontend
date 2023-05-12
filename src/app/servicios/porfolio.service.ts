@@ -14,6 +14,16 @@ export class PorfolioService {
     return this.http.get('./assets/data.json');
   }
 
+  // --- LLAMADAS PERSONA ---
+  getPersona(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/personas/1`);
+  }
+
+  modificarPersona(persona: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/personas/1`, persona);
+  }
+
+  // --- LLAMADAS EXPERIENCIA ---
   getExperiencias(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/personas/1/experiencias`);
   }

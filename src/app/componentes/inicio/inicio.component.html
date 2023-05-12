@@ -1,54 +1,357 @@
- <div id="seccion-inicio">
-      <div class="container col-xxl-8 px-4">
-        <div class="row flex-lg-row-reverse align-items-center g-5">
-          <div id="inicio-imagen" class="col-10 col-sm-8 col-lg-6">
-            <img
-              src="assets/circulo-liquido.png"
-              class="d-block mx-lg-auto img-fluid"
-              alt="Bootstrap Themes"
-              width="700"
-              height="500"
-              loading="lazy"
-            />
+<div id="seccion-inicio">
+  <div class="container col-xxl-8 px-4">
+    <div class="row flex-lg-row-reverse align-items-center g-5">
+      <div id="inicio-imagen" class="col-10 col-sm-8 col-lg-6">
+        <img
+          src="assets/circulo-liquido.png"
+          class="d-block mx-lg-auto img-fluid"
+          alt="Bootstrap Themes"
+          width="700"
+          height="500"
+          loading="lazy"
+        />
+      </div>
+      <div id="inicio-info" class="col-lg-6">
+        <div *ngIf="estaVerificado" class="botones-edicion mb-3">
+          <button
+            class="btn btn-success botonEditar"
+            (click)="abrirFormModificaPersona(); setPersonaValues()"
+          >
+            EDITAR
+          </button>
+        </div>
+        <div *ngIf="!modificandoPersona">
+          <h3 class="heading-secundario mb-4">{{ persona?.titulo }}</h3>
+          <h1 class="display-4 fw-bold lh-1 mb-5">
+            {{ persona?.nombre }} {{ persona?.apellido }}
+          </h1>
+          <p class="mb-4">
+            {{ persona?.acercaDe }}
+          </p>
+          <div
+            class="d-grid gap-2 d-md-flex justify-content-md-start inicio-contacto"
+          >
+            Contacto:
+            <a class="social-link" href="#">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 496 512"
+                width="1em"
+                height="1em"
+              >
+                <path
+                  d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"
+                />
+              </svg>
+            </a>
+            <a class="social-link" href="#">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                width="1em"
+                height="1em"
+              >
+                <path
+                  d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
+                />
+              </svg>
+            </a>
           </div>
-          <div id="inicio-info" class="col-lg-6">
-            <h3 class="heading-secundario mb-4">Full Stack Developer Jr</h3>
-            <h1 class="display-4 fw-bold lh-1 mb-5">Francisco Fontana</h1>
-            <p class="mb-4">
-              Mauris elementum ex vitae arcu finibus, non dictum elit luctus.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Donecaturpis dui, tincidunt sagitti.
-            </p>
-            <div
-              class="d-grid gap-2 d-md-flex justify-content-md-start inicio-contacto"
-            >
-              Contacto:
-              <a class="social-link" href="#">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 496 512"
-                  width="1em"
-                  height="1em"
+        </div>
+        <div *ngIf="modificandoPersona">
+          <form
+            [formGroup]="modificaPersona"
+            class="m-3"
+            (ngSubmit)="modificarPersona($event)"
+          >
+            <div class="mb-3">
+              <label for="inputNombre" class="form-label login-label"
+                >Nombre</label
+              >
+              <input
+                type="text"
+                formControlName="nombre"
+                value="exp"
+                [ngClass]="{
+                  'is-invalid':
+                    campoModificarPer('nombre')?.errors &&
+                    campoModificarPer('nombre')?.touched,
+                  'is-valid':
+                    !campoModificarPer('nombre')?.errors &&
+                    campoModificarPer('nombre')?.touched
+                }"
+                class="form-control"
+                id="inputNombre"
+              />
+              <div
+                *ngIf="
+                  campoModificarPer('nombre')?.errors &&
+                  campoModificarPer('nombre')?.touched
+                "
+              >
+                <p
+                  *ngIf="campoModificarPer('nombre')?.hasError('required')"
+                  class="text-danger"
                 >
-                  <path
-                    d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"
-                  />
-                </svg>
-              </a>
-              <a class="social-link" href="#">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                  width="1em"
-                  height="1em"
+                  El campo nombre es requerido.
+                </p>
+                <p
+                  *ngIf="campoModificarPer('nombre')?.hasError('minlength')"
+                  class="text-danger"
                 >
-                  <path
-                    d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
-                  />
-                </svg>
-              </a>
+                  El campo nombre debe tener 3 o mas caracteres.
+                </p>
+              </div>
             </div>
-          </div>
+            <div class="mb-3">
+              <label for="inputApellido" class="form-label login-label"
+                >Apellido</label
+              >
+              <input
+                type="text"
+                formControlName="apellido"
+                [ngClass]="{
+                  'is-invalid':
+                    campoModificarPer('apellido')?.errors &&
+                    campoModificarPer('apellido')?.touched,
+                  'is-valid':
+                    !campoModificarPer('apellido')?.errors &&
+                    campoModificarPer('apellido')?.touched
+                }"
+                class="form-control"
+                id="inputApellido"
+              />
+              <div
+                *ngIf="
+                  campoModificarPer('apellido')?.errors &&
+                  campoModificarPer('apellido')?.touched
+                "
+              >
+                <p
+                  *ngIf="campoModificarPer('apellido')?.hasError('required')"
+                  class="text-danger"
+                >
+                  El campo apellido es requerido.
+                </p>
+                <p
+                  *ngIf="campoModificarPer('apellido')?.hasError('minlength')"
+                  class="text-danger"
+                >
+                  El campo apellido debe tener 3 o mas caracteres.
+                </p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="inputTitulo" class="form-label login-label"
+                >Titulo</label
+              >
+              <input
+                type="text"
+                formControlName="titulo"
+                [ngClass]="{
+                  'is-invalid':
+                    campoModificarPer('titulo')?.errors &&
+                    campoModificarPer('titulo')?.touched,
+                  'is-valid':
+                    !campoModificarPer('titulo')?.errors &&
+                    campoModificarPer('titulo')?.touched
+                }"
+                class="form-control"
+                id="inputTitulo"
+              />
+              <div
+                *ngIf="
+                  campoModificarPer('titulo')?.errors &&
+                  campoModificarPer('titulo')?.touched
+                "
+              >
+                <p
+                  *ngIf="campoModificarPer('titulo')?.hasError('required')"
+                  class="text-danger"
+                >
+                  El campo titulo es requerido.
+                </p>
+                <p
+                  *ngIf="campoModificarPer('titulo')?.hasError('minlength')"
+                  class="text-danger"
+                >
+                  El campo titulo debe tener 3 o mas caracteres.
+                </p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="inputAcercaDe" class="form-label login-label"
+                >Acerca De</label
+              >
+              <input
+                type="text"
+                formControlName="acercaDe"
+                [ngClass]="{
+                  'is-invalid':
+                    campoModificarPer('acercaDe')?.errors &&
+                    campoModificarPer('acercaDe')?.touched,
+                  'is-valid':
+                    !campoModificarPer('acercaDe')?.errors &&
+                    campoModificarPer('acercaDe')?.touched
+                }"
+                class="form-control"
+                id="inputAcercaDe"
+              />
+              <div
+                *ngIf="
+                  campoModificarPer('acercaDe')?.errors &&
+                  campoModificarPer('acercaDe')?.touched
+                "
+              >
+                <p
+                  *ngIf="campoModificarPer('acercaDe')?.hasError('required')"
+                  class="text-danger"
+                >
+                  El campo acerca de es requerido.
+                </p>
+                <p
+                  *ngIf="campoModificarPer('acercaDe')?.hasError('minlength')"
+                  class="text-danger"
+                >
+                  El campo acerca de debe tener 3 o mas caracteres.
+                </p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="inputEmail" class="form-label login-label"
+                >Email</label
+              >
+              <input
+                type="email"
+                formControlName="email"
+                [ngClass]="{
+                  'is-invalid':
+                    campoModificarPer('email')?.errors &&
+                    campoModificarPer('email')?.touched,
+                  'is-valid':
+                    !campoModificarPer('email')?.errors &&
+                    campoModificarPer('email')?.touched
+                }"
+                class="form-control"
+                id="inputEmail"
+              />
+              <div
+                *ngIf="
+                  campoModificarPer('email')?.errors &&
+                  campoModificarPer('email')?.touched
+                "
+              >
+                <p
+                  *ngIf="campoModificarPer('email')?.hasError('required')"
+                  class="text-danger"
+                >
+                  El campo email es requerido.
+                </p>
+                <p
+                  *ngIf="campoModificarPer('email')?.hasError('minlength')"
+                  class="text-danger"
+                >
+                  El campo email debe tener 3 o mas caracteres.
+                </p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="inputEnlaceGithub" class="form-label login-label"
+                >Enlace Git Hub</label
+              >
+              <input
+                type="text"
+                formControlName="enlaceGithub"
+                [ngClass]="{
+                  'is-invalid':
+                    campoModificarPer('enlaceGithub')?.errors &&
+                    campoModificarPer('enlaceGithub')?.touched,
+                  'is-valid':
+                    !campoModificarPer('enlaceGithub')?.errors &&
+                    campoModificarPer('enlaceGithub')?.touched
+                }"
+                class="form-control"
+                id="inputEnlaceGithub"
+              />
+              <div
+                *ngIf="
+                  campoModificarPer('enlaceGithub')?.errors &&
+                  campoModificarPer('enlaceGithub')?.touched
+                "
+              >
+                <p
+                  *ngIf="
+                    campoModificarPer('enlaceGithub')?.hasError('required')
+                  "
+                  class="text-danger"
+                >
+                  El campo enlace Github es requerido.
+                </p>
+                <p
+                  *ngIf="
+                    campoModificarPer('enlaceGithub')?.hasError('minlength')
+                  "
+                  class="text-danger"
+                >
+                  El campo enlace Github debe tener 3 o mas caracteres.
+                </p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="inputEnlaceLinkedin" class="form-label login-label"
+                >Enlace LinkedIn</label
+              >
+              <input
+                type="text"
+                formControlName="enlaceLinkedin"
+                [ngClass]="{
+                  'is-invalid':
+                    campoModificarPer('enlaceLinkedin')?.errors &&
+                    campoModificarPer('enlaceLinkedin')?.touched,
+                  'is-valid':
+                    !campoModificarPer('enlaceLinkedin')?.errors &&
+                    campoModificarPer('enlaceLinkedin')?.touched
+                }"
+                class="form-control"
+                id="inputEnlaceLinkedin"
+              />
+              <div
+                *ngIf="
+                  campoModificarPer('enlaceLinkedin')?.errors &&
+                  campoModificarPer('enlaceLinkedin')?.touched
+                "
+              >
+                <p
+                  *ngIf="
+                    campoModificarPer('enlaceLinkedin')?.hasError('required')
+                  "
+                  class="text-danger"
+                >
+                  El campo enlace LinkedIn es requerido.
+                </p>
+                <p
+                  *ngIf="
+                    campoModificarPer('enlaceLinkedin')?.hasError('minlength')
+                  "
+                  class="text-danger"
+                >
+                  El campo enlace LinkedIn debe tener 3 o mas caracteres.
+                </p>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary botonAgregar">
+              Enviar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-danger botonBorrar ms-1"
+              (click)="cerrarFormModificaPersona()"
+            >
+              Cancelar
+            </button>
+          </form>
         </div>
       </div>
     </div>
+  </div>
+</div>
