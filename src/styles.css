@@ -120,3 +120,8 @@ h5 {
   background-color: var(--menta);
   filter: brightness(1.1);
 }
+.botones-edicion {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}

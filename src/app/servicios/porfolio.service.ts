@@ -47,4 +47,29 @@ export class PorfolioService {
       experiencia
     );
   }
+
+  // --- LLAMADAS FORMACION ---
+  getFormaciones(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/personas/1/formaciones`);
+  }
+
+  agregarFormacion(formacion: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/personas/1/formacion`,
+      formacion
+    );
+  }
+
+  eliminarFormacion(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/personas/1/formacion/${id}`);
+  }
+
+  modificarFormacion(id: number, formacion: any): Observable<any> {
+    console.log(id);
+    console.log(formacion);
+    return this.http.put<any>(
+      `${this.apiUrl}/personas/1/formacion/${id}`,
+      formacion
+    );
+  }
 }

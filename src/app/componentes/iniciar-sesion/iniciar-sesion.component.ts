@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VerificacionService } from '../../servicios/verificacion.service';
 import { Router } from '@angular/router';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class IniciarSesionComponent implements OnInit {
   form: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,10 +38,23 @@ export class IniciarSesionComponent implements OnInit {
     event.preventDefault;
     this.verificacionService
       .IniciarSesion(this.form.value)
+      .pipe(
+        catchError((error) => {
+          console.log(error);
+          if (error.status === 401) {
+            this.errorMessage = 'Email o Contraseña incorrectos';
+          } else {
+            this.errorMessage = 'Ups, ha ocurrido un error';
+          }
+          return of(null);
+        })
+      )
       .subscribe((data) => {
-        console.log('onEnviarSubscribe');
-        console.log(data);
-        this.ruta.navigate(['/']);
+        if (data) {
+          console.log('onEnviarSubscribe');
+          console.log(data);
+          this.ruta.navigate(['/']);
+        }
       });
   }
 }

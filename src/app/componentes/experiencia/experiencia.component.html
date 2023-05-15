@@ -37,7 +37,10 @@
                     BORRAR
                   </button>
                 </div>
-                <h5 class="card-title item-fecha">
+                <h5
+                  [ngClass]="{ 'mt-3': estaVerificado }"
+                  class="card-title item-fecha"
+                >
                   {{ experiencia.fechaInicio
                   }}<span *ngIf="experiencia.fechaFin">
                     hasta {{ experiencia.fechaFin }}</span

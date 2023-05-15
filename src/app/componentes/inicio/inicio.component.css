@@ -24,3 +24,11 @@
 .inicio-contacto > a > svg {
   fill: var(--menta);
 }
+.inicio-img {
+  object-fit: contain;
+  background-image: url("/assets/circulo-liquido.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  max-height: 700px;
+}
