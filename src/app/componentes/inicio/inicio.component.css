@@ -32,3 +32,12 @@
   background-size: contain;
   max-height: 700px;
 }
+@media only screen and (max-width: 768px) {
+  #inicio-info {
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+  }
+  #inicio-imagen {
+    align-self: center;
+  }
+}

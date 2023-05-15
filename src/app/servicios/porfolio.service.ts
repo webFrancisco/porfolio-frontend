@@ -9,11 +9,6 @@ export class PorfolioService {
 
   constructor(private http: HttpClient) {}
 
-  obtenerDatos(): Observable<any> {
-    console.log('servicio funcionando');
-    return this.http.get('./assets/data.json');
-  }
-
   // --- LLAMADAS PERSONA ---
   getPersona(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/personas/1`);
@@ -40,8 +35,6 @@ export class PorfolioService {
   }
 
   modificarExperiencia(id: number, experiencia: any): Observable<any> {
-    console.log(id);
-    console.log(experiencia);
     return this.http.put<any>(
       `${this.apiUrl}/personas/1/experiencia/${id}`,
       experiencia
@@ -65,8 +58,6 @@ export class PorfolioService {
   }
 
   modificarFormacion(id: number, formacion: any): Observable<any> {
-    console.log(id);
-    console.log(formacion);
     return this.http.put<any>(
       `${this.apiUrl}/personas/1/formacion/${id}`,
       formacion
@@ -90,11 +81,29 @@ export class PorfolioService {
   }
 
   modificarHabilidad(id: number, habilidad: any): Observable<any> {
-    console.log(id);
-    console.log(habilidad);
     return this.http.put<any>(
       `${this.apiUrl}/personas/1/habilidad/${id}`,
       habilidad
+    );
+  }
+
+  // --- LLAMADAS PROYECTOS ---
+  getProyectos(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/personas/1/proyectos`);
+  }
+
+  agregarProyecto(proyecto: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/personas/1/proyecto`, proyecto);
+  }
+
+  eliminarProyecto(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/personas/1/proyecto/${id}`);
+  }
+
+  modificarProyecto(id: number, proyecto: any): Observable<any> {
+    return this.http.put<any>(
+      `${this.apiUrl}/personas/1/proyecto/${id}`,
+      proyecto
     );
   }
 }

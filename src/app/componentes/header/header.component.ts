@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { VerificacionService } from 'src/app/servicios/verificacion.service';
 
 @Component({
@@ -11,10 +10,7 @@ export class HeaderComponent implements OnInit {
   currentUser = { id: '' };
   estaVerificado = false;
 
-  constructor(
-    private verificacionService: VerificacionService,
-    private ruta: Router
-  ) {}
+  constructor(private verificacionService: VerificacionService) {}
 
   ngOnInit(): void {
     this.actualizar();

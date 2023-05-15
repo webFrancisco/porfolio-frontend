@@ -1,29 +1,426 @@
- <section class="secciones-padding for-section">
-      <div class="text-center container">
-        <div class="row pt-lg-5">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            <h3 class="heading-secundario mb-4">Proyectos</h3>
-            <h2 class="display-6 fw-bold lh-1 mb-5">Proyectos Web aplicados</h2>
-          </div>
-        </div>
-        <div class="album py-5">
-          <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 g-3">
-              <div class="col">
-                <div class="card shadow-sm">
-                  <img src="assets/Proyecto1.jpg" class="card-img" />
-                  <div class="card-img-overlay card-body exp-card p-4 proy-card">
-                    <h5 class="card-title proy-fecha">2022-2023</h5>
-                    <h5 class="card-title proy-titulo">Portfolio Personal</h5>
-                    <h5 class="card-title proy-subtitulo">
-                      Argentina Programa
-                    </h5>
-                    <p class="card-text proy-text">Proyecto perteneciente a</p>
+<section id="Proyectos" class="secciones-padding for-section">
+  <div class="text-center container">
+    <div class="row pt-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h3 class="heading-secundario mb-4">Proyectos</h3>
+        <h2 class="display-6 fw-bold lh-1 mb-5">Proyectos Web aplicados</h2>
+      </div>
+    </div>
+    <div class="album py-5">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 g-3">
+          <div class="col" *ngFor="let proyecto of proyectos">
+            <div
+              *ngIf="modificandoProyecto !== proyecto.id"
+              class="card shadow-sm"
+            >
+              <img src="assets/Proyecto1.jpg" class="card-img" />
+              <div class="card-img-overlay card-body exp-card p-4 proy-card">
+                <div *ngIf="estaVerificado" class="botones-edicion">
+                  <button
+                    class="btn btn-success botonEditar"
+                    (click)="
+                      abrirFormModificaProyecto(proyecto.id);
+                      setProyectoValues(proyecto)
+                    "
+                  >
+                    EDITAR
+                  </button>
+                  <button
+                    class="btn btn-danger botonBorrar m-1"
+                    (click)="eliminarProyecto(proyecto.id)"
+                  >
+                    BORRAR
+                  </button>
+                </div>
+                <h5 class="card-title proy-fecha">
+                  {{ proyecto.fechaInicio
+                  }}<span *ngIf="proyecto.fechaFin">
+                    hasta {{ proyecto.fechaFin }}</span
+                  >
+                </h5>
+                <h5 class="card-title proy-titulo">{{ proyecto.titulo }}</h5>
+                <h5 class="card-title proy-subtitulo">
+                  {{ proyecto.destino }}
+                </h5>
+                <p class="card-text proy-text">{{ proyecto.descripcion }}</p>
+              </div>
+            </div>
+            <div
+              *ngIf="modificandoProyecto === proyecto.id"
+              class="card shadow-sm text-start"
+            >
+              <form
+                [formGroup]="modificaProyecto"
+                class="m-3"
+                (ngSubmit)="modificarProyecto($event)"
+              >
+                <div class="mb-3">
+                  <label for="inputTitulo" class="form-label login-label"
+                    >Titulo</label
+                  >
+                  <input
+                    type="text"
+                    formControlName="titulo"
+                    value="exp"
+                    [ngClass]="{
+                      'is-invalid':
+                        campoModificarPro('titulo')?.errors &&
+                        campoModificarPro('titulo')?.touched,
+                      'is-valid':
+                        !campoModificarPro('titulo')?.errors &&
+                        campoModificarPro('titulo')?.touched
+                    }"
+                    class="form-control"
+                    id="inputTitulo"
+                  />
+                  <div
+                    *ngIf="
+                      campoModificarPro('titulo')?.errors &&
+                      campoModificarPro('titulo')?.touched
+                    "
+                  >
+                    <p
+                      *ngIf="campoModificarPro('titulo')?.hasError('required')"
+                      class="text-danger"
+                    >
+                      El campo titulo es requerido.
+                    </p>
+                    <p
+                      *ngIf="campoModificarPro('titulo')?.hasError('minlength')"
+                      class="text-danger"
+                    >
+                      La titulo debe tener 3 o mas caracteres.
+                    </p>
                   </div>
                 </div>
-              </div>
+                <div class="mb-3">
+                  <label for="inputDestino" class="form-label login-label"
+                    >Destino</label
+                  >
+                  <input
+                    type="text"
+                    formControlName="destino"
+                    [ngClass]="{
+                      'is-invalid':
+                        campoModificarPro('destino')?.errors &&
+                        campoModificarPro('destino')?.touched,
+                      'is-valid':
+                        !campoModificarPro('destino')?.errors &&
+                        campoModificarPro('destino')?.touched
+                    }"
+                    class="form-control"
+                    id="inputDestino"
+                  />
+                  <div
+                    *ngIf="
+                      campoModificarPro('destino')?.errors &&
+                      campoModificarPro('destino')?.touched
+                    "
+                  >
+                    <p
+                      *ngIf="campoModificarPro('destino')?.hasError('required')"
+                      class="text-danger"
+                    >
+                      El campo destino es requerido.
+                    </p>
+                    <p
+                      *ngIf="
+                        campoModificarPro('destino')?.hasError('minlength')
+                      "
+                      class="text-danger"
+                    >
+                      El campo destino debe tener 3 o mas caracteres.
+                    </p>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="inputFechaInicio" class="form-label login-label"
+                    >Fecha de Inicio</label
+                  >
+                  <input
+                    type="date"
+                    formControlName="fechaInicio"
+                    [ngClass]="{
+                      'is-invalid':
+                        campoModificarPro('fechaInicio')?.errors &&
+                        campoModificarPro('fechaInicio')?.touched,
+                      'is-valid':
+                        !campoModificarPro('fechaInicio')?.errors &&
+                        campoModificarPro('fechaInicio')?.touched
+                    }"
+                    class="form-control"
+                    id="inputFechaInicio"
+                  />
+                  <div
+                    *ngIf="
+                      campoModificarPro('fechaInicio')?.errors &&
+                      campoModificarPro('fechaInicio')?.touched
+                    "
+                  >
+                    <p
+                      *ngIf="
+                        campoModificarPro('fechaInicio')?.hasError('required')
+                      "
+                      class="text-danger"
+                    >
+                      El campo fecha de inicio es requerido.
+                    </p>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="inputFechaFin" class="form-label login-label"
+                    >Fecha de Fin</label
+                  >
+                  <input
+                    type="date"
+                    formControlName="fechaFin"
+                    class="form-control"
+                    id="inputFechaFin"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="inputDescripcion" class="form-label login-label"
+                    >Descripcion</label
+                  >
+                  <input
+                    type="text"
+                    formControlName="descripcion"
+                    [ngClass]="{
+                      'is-invalid':
+                        campoModificarPro('descripcion')?.errors &&
+                        campoModificarPro('descripcion')?.touched,
+                      'is-valid':
+                        !campoModificarPro('descripcion')?.errors &&
+                        campoModificarPro('descripcion')?.touched
+                    }"
+                    class="form-control"
+                    id="inputDescripcion"
+                  />
+                  <div
+                    *ngIf="
+                      campoModificarPro('descripcion')?.errors &&
+                      campoModificarPro('descripcion')?.touched
+                    "
+                  >
+                    <p
+                      *ngIf="
+                        campoModificarPro('descripcion')?.hasError('required')
+                      "
+                      class="text-danger"
+                    >
+                      El campo descripcion es requerido.
+                    </p>
+                    <p
+                      *ngIf="
+                        campoModificarPro('descripcion')?.hasError('minlength')
+                      "
+                      class="text-danger"
+                    >
+                      El campo descripcion debe tener 3 o mas caracteres.
+                    </p>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary botonAgregar">
+                  Enviar
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-danger botonBorrar ms-1"
+                  (click)="cerrarFormModificaProyecto()"
+                >
+                  Cancelar
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </div>
-    </section>
+      <div class="text-start">
+        <button
+          *ngIf="!agregandoProyecto && estaVerificado"
+          class="btn btn-primary botonAgregar m-3"
+          (click)="abrirFormAgregarProyecto()"
+        >
+          AGREGAR
+        </button>
+        <div *ngIf="agregandoProyecto">
+          <form
+            [formGroup]="nuevoProyecto"
+            class="m-3"
+            (ngSubmit)="agregarProyecto($event)"
+          >
+            <div class="mb-3">
+              <label for="inputTitulo" class="form-label login-label"
+                >Titulo</label
+              >
+              <input
+                type="text"
+                formControlName="titulo"
+                value="exp"
+                [ngClass]="{
+                  'is-invalid':
+                    campoNuevoPro('titulo')?.errors &&
+                    campoNuevoPro('titulo')?.touched,
+                  'is-valid':
+                    !campoNuevoPro('titulo')?.errors &&
+                    campoNuevoPro('titulo')?.touched
+                }"
+                class="form-control"
+                id="inputTitulo"
+              />
+              <div
+                *ngIf="
+                  campoNuevoPro('titulo')?.errors &&
+                  campoNuevoPro('titulo')?.touched
+                "
+              >
+                <p
+                  *ngIf="campoNuevoPro('titulo')?.hasError('required')"
+                  class="text-danger"
+                >
+                  El campo titulo es requerido.
+                </p>
+                <p
+                  *ngIf="campoNuevoPro('titulo')?.hasError('minlength')"
+                  class="text-danger"
+                >
+                  La titulo debe tener 3 o mas caracteres.
+                </p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="inputDestino" class="form-label login-label"
+                >Destino</label
+              >
+              <input
+                type="text"
+                formControlName="destino"
+                [ngClass]="{
+                  'is-invalid':
+                    campoNuevoPro('destino')?.errors &&
+                    campoNuevoPro('destino')?.touched,
+                  'is-valid':
+                    !campoNuevoPro('destino')?.errors &&
+                    campoNuevoPro('destino')?.touched
+                }"
+                class="form-control"
+                id="inputDestino"
+              />
+              <div
+                *ngIf="
+                  campoNuevoPro('destino')?.errors &&
+                  campoNuevoPro('destino')?.touched
+                "
+              >
+                <p
+                  *ngIf="campoNuevoPro('destino')?.hasError('required')"
+                  class="text-danger"
+                >
+                  El campo destino es requerido.
+                </p>
+                <p
+                  *ngIf="campoNuevoPro('destino')?.hasError('minlength')"
+                  class="text-danger"
+                >
+                  El campo destino debe tener 3 o mas caracteres.
+                </p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="inputFechaInicio" class="form-label login-label"
+                >Fecha de Inicio</label
+              >
+              <input
+                type="date"
+                formControlName="fechaInicio"
+                [ngClass]="{
+                  'is-invalid':
+                    campoNuevoPro('fechaInicio')?.errors &&
+                    campoNuevoPro('fechaInicio')?.touched,
+                  'is-valid':
+                    !campoNuevoPro('fechaInicio')?.errors &&
+                    campoNuevoPro('fechaInicio')?.touched
+                }"
+                class="form-control"
+                id="inputFechaInicio"
+              />
+              <div
+                *ngIf="
+                  campoNuevoPro('fechaInicio')?.errors &&
+                  campoNuevoPro('fechaInicio')?.touched
+                "
+              >
+                <p
+                  *ngIf="campoNuevoPro('fechaInicio')?.hasError('required')"
+                  class="text-danger"
+                >
+                  El campo fecha de inicio es requerido.
+                </p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="inputFechaFin" class="form-label login-label"
+                >Fecha de Fin</label
+              >
+              <input
+                type="date"
+                formControlName="fechaFin"
+                class="form-control"
+                id="inputFechaFin"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="inputDescripcion" class="form-label login-label"
+                >Descripcion</label
+              >
+              <input
+                type="text"
+                formControlName="descripcion"
+                [ngClass]="{
+                  'is-invalid':
+                    campoNuevoPro('descripcion')?.errors &&
+                    campoNuevoPro('descripcion')?.touched,
+                  'is-valid':
+                    !campoNuevoPro('descripcion')?.errors &&
+                    campoNuevoPro('descripcion')?.touched
+                }"
+                class="form-control"
+                id="inputDescripcion"
+              />
+              <div
+                *ngIf="
+                  campoNuevoPro('descripcion')?.errors &&
+                  campoNuevoPro('descripcion')?.touched
+                "
+              >
+                <p
+                  *ngIf="campoNuevoPro('descripcion')?.hasError('required')"
+                  class="text-danger"
+                >
+                  El campo descripcion es requerido.
+                </p>
+                <p
+                  *ngIf="campoNuevoPro('descripcion')?.hasError('minlength')"
+                  class="text-danger"
+                >
+                  El campo descripcion debe tener 3 o mas caracteres.
+                </p>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary botonAgregar">
+              Enviar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-danger botonBorrar ms-1"
+              (click)="cerrarFormAgregarProyecto()"
+            >
+              Cancelar
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
