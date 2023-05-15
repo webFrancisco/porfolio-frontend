@@ -1,62 +1,262 @@
- <section class="secciones-padding text-center container">
-      <div class="row">
-        <div class="col-md-6">
-          <img
-            src="assets/multicultural-group-of-marketing-managers-working.jpg"
-            class="img-fluid rounded-3"
-          />
-        </div>
-        <div class="col-md-6 ps-4 my-auto">
-          <div class="mx-auto text-start">
-            <h3 class="heading-secundario mb-4">Hard & Soft Skills</h3>
-            <h2 class="display-6 fw-bold lh-1 mb-5">Mis Aptitudes</h2>
-            <p>
-              Something short and leading about the collection below—its
-              contents, the creator, etc. Make it short and sweet, but not too
-              short so folks don’t simply skip over it entirely.
-            </p>
-          </div>
-          <div class="text-start mt-5">
-            <h3 class="heading-secundario mb-2">Skill 1</h3>
+<section class="secciones-padding text-center container">
+  <div class="row">
+    <div class="col-md-6">
+      <img
+        src="assets/multicultural-group-of-marketing-managers-working.jpg"
+        class="img-fluid rounded-3"
+      />
+    </div>
+    <div class="col-md-6 ps-4 my-auto">
+      <div class="mx-auto text-start">
+        <h3 class="heading-secundario mb-4">Hard & Soft Skills</h3>
+        <h2 class="display-6 fw-bold lh-1 mb-5">Mis Aptitudes</h2>
+        <p>
+          Something short and leading about the collection below—its contents,
+          the creator, etc. Make it short and sweet, but not too short so folks
+          don’t simply skip over it entirely.
+        </p>
+      </div>
+      <div class="text-start mt-5">
+        <div *ngFor="let habilidad of habilidades">
+          <div *ngIf="modificandoHabilidad !== habilidad.id">
+            <div *ngIf="estaVerificado" class="botones-edicion-hab">
+              <button
+                class="btn btn-success botonEditar"
+                (click)="
+                  abrirFormModificaHabilidad(habilidad.id);
+                  setHabilidadValues(habilidad)
+                "
+              >
+                EDITAR
+              </button>
+              <button
+                class="btn btn-danger botonBorrar m-1"
+                (click)="eliminarHabilidad(habilidad.id)"
+              >
+                BORRAR
+              </button>
+            </div>
+            <h3 class="heading-secundario mb-2">{{ habilidad.nombre }}</h3>
             <div class="progress skills-progr mb-4">
               <div
                 class="progress-bar"
                 role="progressbar"
-                style="width: 80%"
+                [style.width.%]="habilidad.nivel"
                 aria-valuenow="80"
                 aria-valuemin="0"
                 aria-valuemax="100"
               >
-                80%
-              </div>
-            </div>
-            <h3 class="heading-secundario mb-2">Skill 2</h3>
-            <div class="progress skills-progr mb-4">
-              <div
-                class="progress-bar"
-                role="progressbar"
-                style="width: 90%"
-                aria-valuenow="90"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              >
-                90%
-              </div>
-            </div>
-            <h3 class="heading-secundario mb-2">Skill 3</h3>
-            <div class="progress skills-progr mb-4">
-              <div
-                class="progress-bar"
-                role="progressbar"
-                style="width: 75%"
-                aria-valuenow="75"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              >
-                75%
+                {{ habilidad.nivel }}%
               </div>
             </div>
           </div>
+          <div *ngIf="modificandoHabilidad === habilidad.id">
+            <form
+              [formGroup]="modificaHabilidad"
+              class="m-3"
+              (ngSubmit)="modificarHabilidad($event)"
+            >
+              <div class="mb-3">
+                <label for="inputHabilidad" class="form-label login-label"
+                  >Habilidad</label
+                >
+                <input
+                  type="text"
+                  formControlName="nombre"
+                  [ngClass]="{
+                    'is-invalid':
+                      campoModificarHab('nombre')?.errors &&
+                      campoModificarHab('nombre')?.touched,
+                    'is-valid':
+                      !campoModificarHab('nombre')?.errors &&
+                      campoModificarHab('nombre')?.touched
+                  }"
+                  class="form-control"
+                  id="inputnombre"
+                />
+                <div
+                  *ngIf="
+                    campoModificarHab('nombre')?.errors &&
+                    campoModificarHab('nombre')?.touched
+                  "
+                >
+                  <p
+                    *ngIf="campoModificarHab('nombre')?.hasError('required')"
+                    class="text-danger"
+                  >
+                    El campo habilidad es requerido.
+                  </p>
+                  <p
+                    *ngIf="campoModificarHab('nombre')?.hasError('minlength')"
+                    class="text-danger"
+                  >
+                    El campo habilidad debe tener 3 o mas caracteres.
+                  </p>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="inputNivel" class="form-label login-label"
+                  >Nivel</label
+                >
+                <input
+                  type="text"
+                  formControlName="nivel"
+                  [ngClass]="{
+                    'is-invalid':
+                      campoModificarHab('nivel')?.errors &&
+                      campoModificarHab('nivel')?.touched,
+                    'is-valid':
+                      !campoModificarHab('nivel')?.errors &&
+                      campoModificarHab('nivel')?.touched
+                  }"
+                  class="form-control"
+                  id="inputNivel"
+                />
+                <div
+                  *ngIf="
+                    campoModificarHab('nivel')?.errors &&
+                    campoModificarHab('nivel')?.touched
+                  "
+                >
+                  <p
+                    *ngIf="campoModificarHab('nivel')?.hasError('required')"
+                    class="text-danger"
+                  >
+                    El campo nivel es requerido.
+                  </p>
+                  <p
+                    *ngIf="campoModificarHab('nivel')?.hasError('min')"
+                    class="text-danger"
+                  >
+                    El nivel debe ser mayor a 1.
+                  </p>
+                  <p
+                    *ngIf="campoModificarHab('nivel')?.hasError('max')"
+                    class="text-danger"
+                  >
+                    El nivel no debe ser mayor a 100.
+                  </p>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary botonAgregar">
+                Enviar
+              </button>
+              <button
+                class="btn btn-danger botonBorrar ms-1"
+                (click)="cerrarFormModificaHabilidad()"
+              >
+                Cancelar
+              </button>
+            </form>
+          </div>
+        </div>
+        <button
+          *ngIf="!agregandoHabilidad && estaVerificado"
+          class="btn btn-primary botonAgregar m-3"
+          (click)="abrirFormAgregarHabilidad()"
+        >
+          AGREGAR
+        </button>
+        <div *ngIf="agregandoHabilidad">
+          <form
+            [formGroup]="nuevaHabilidad"
+            class="m-3"
+            (ngSubmit)="agregarHabilidad($event)"
+          >
+            <div class="mb-3">
+              <label for="inputHabilidad" class="form-label login-label"
+                >Habilidad</label
+              >
+              <input
+                type="text"
+                formControlName="nombre"
+                [ngClass]="{
+                  'is-invalid':
+                    campoNuevaHab('nombre')?.errors &&
+                    campoNuevaHab('nombre')?.touched,
+                  'is-valid':
+                    !campoNuevaHab('nombre')?.errors &&
+                    campoNuevaHab('nombre')?.touched
+                }"
+                class="form-control"
+                id="inputnombre"
+              />
+              <div
+                *ngIf="
+                  campoNuevaHab('nombre')?.errors &&
+                  campoNuevaHab('nombre')?.touched
+                "
+              >
+                <p
+                  *ngIf="campoNuevaHab('nombre')?.hasError('required')"
+                  class="text-danger"
+                >
+                  El campo habilidad es requerido.
+                </p>
+                <p
+                  *ngIf="campoNuevaHab('nombre')?.hasError('minlength')"
+                  class="text-danger"
+                >
+                  El campo habilidad debe tener 3 o mas caracteres.
+                </p>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="inputNivel" class="form-label login-label"
+                >Nivel</label
+              >
+              <input
+                type="text"
+                formControlName="nivel"
+                [ngClass]="{
+                  'is-invalid':
+                    campoNuevaHab('nivel')?.errors &&
+                    campoNuevaHab('nivel')?.touched,
+                  'is-valid':
+                    !campoNuevaHab('nivel')?.errors &&
+                    campoNuevaHab('nivel')?.touched
+                }"
+                class="form-control"
+                id="inputNivel"
+              />
+              <div
+                *ngIf="
+                  campoNuevaHab('nivel')?.errors &&
+                  campoNuevaHab('nivel')?.touched
+                "
+              >
+                <p
+                  *ngIf="campoNuevaHab('nivel')?.hasError('required')"
+                  class="text-danger"
+                >
+                  El campo nivel es requerido.
+                </p>
+                <p
+                  *ngIf="campoNuevaHab('nivel')?.hasError('min')"
+                  class="text-danger"
+                >
+                  El nivel debe ser mayor a 1.
+                </p>
+                <p
+                  *ngIf="campoNuevaHab('nivel')?.hasError('max')"
+                  class="text-danger"
+                >
+                  El nivel no debe ser mayor a 100.
+                </p>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary botonAgregar">
+              Enviar
+            </button>
+            <button
+              class="btn btn-danger botonBorrar ms-1"
+              (click)="cerrarFormAgregarHabilidad()"
+            >
+              Cancelar
+            </button>
+          </form>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>

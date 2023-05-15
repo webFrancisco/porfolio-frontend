@@ -8,7 +8,7 @@ import { VerificacionService } from 'src/app/servicios/verificacion.service';
   templateUrl: './formacion.component.html',
   styleUrls: ['./formacion.component.css'],
 })
-export class FormacionComponent {
+export class FormacionComponent implements OnInit {
   estaVerificado = false;
   agregandoFormacion: Boolean = false;
   modificandoFormacion: any = null;

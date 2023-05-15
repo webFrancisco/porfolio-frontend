@@ -6,3 +6,8 @@
   background-color: var(--menta);
   font-size: 16px;
 }
+.botones-edicion-hab {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
